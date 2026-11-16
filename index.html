@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f2">
+  <title>我的學習紀錄</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="我的學習紀錄首頁"><span class="brand-mark" aria-hidden="true">學</span><span>我的學習紀錄</span></a>
+      <p class="header-note">每天一點點，累積看得見的進步。</p>
+    </header>
+
+    <section id="setup-notice" class="notice" hidden>
+      <strong>還差最後一步</strong>
+      <p>請先在 <code>config.js</code> 填入 Supabase Project URL 和 publishable key，再重新整理頁面。</p>
+    </section>
+
+    <section id="auth-view" class="auth-layout" aria-labelledby="auth-title" hidden>
+      <div class="intro-panel">
+        <p class="eyebrow">YOUR LEARNING, YOUR PACE</p>
+        <h1>把今天學到的，<br>好好留下來。</h1>
+        <p class="intro-copy">記下每次練習、每個卡關。回頭看時，你會發現自己已經走了很遠。</p>
+        <div class="progress-art" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><i>✳</i></div>
+      </div>
+      <div class="card auth-card">
+        <div class="auth-heading"><p class="eyebrow">歡迎回來</p><h2 id="auth-title">登入帳號</h2><p id="auth-description">登入後繼續累積你的學習足跡。</p></div>
+        <div class="auth-tabs" role="tablist" aria-label="選擇登入或註冊">
+          <button type="button" class="tab-button active" id="login-tab" role="tab" aria-selected="true">登入</button>
+          <button type="button" class="tab-button" id="signup-tab" role="tab" aria-selected="false">建立帳號</button>
+        </div>
+        <form id="auth-form">
+          <label for="auth-email">Email</label>
+          <input id="auth-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <label for="auth-password">密碼</label>
+          <input id="auth-password" name="password" type="password" autocomplete="current-password" minlength="6" placeholder="至少 6 個字元" required>
+          <button class="button button-primary button-full" id="auth-submit" type="submit">登入</button>
+        </form>
+        <p id="auth-message" class="form-message" role="status" aria-live="polite"></p>
+        <p class="privacy-note"><span aria-hidden="true">▣</span> 你的紀錄只對你自己開放</p>
+      </div>
+    </section>
+
+    <section id="app-view" hidden>
+      <div class="dashboard-heading">
+        <div><p class="eyebrow">MY LEARNING SPACE</p><h1>學習紀錄</h1><p class="muted">每一步都算數，繼續保持。</p></div>
+        <div class="account-box"><span id="account-email" class="account-email"></span><button id="signout-button" class="button button-quiet" type="button">登出</button></div>
+      </div>
+
+      <div class="dashboard-grid">
+        <section class="card entry-card" aria-labelledby="entry-title">
+          <div class="section-heading"><div><p class="eyebrow">NEW ENTRY</p><h2 id="entry-title">記下今天的學習</h2></div><span class="heading-icon" aria-hidden="true">✎</span></div>
+          <form id="log-form">
+            <label for="log-date">日期</label>
+            <input id="log-date" name="log-date" type="date" required>
+            <label for="log-content">今天學了什麼？</label>
+            <textarea id="log-content" name="content" rows="4" maxlength="5000" placeholder="寫下今天學到的概念、完成的練習……" required></textarea>
+            <div class="form-row">
+              <div class="minutes-field"><label for="log-minutes">花了幾分鐘</label><div class="input-with-suffix"><input id="log-minutes" name="minutes" type="number" min="1" max="1440" step="1" placeholder="30" required><span>分鐘</span></div></div>
+            </div>
+            <label for="log-stuck">卡在哪裡 <span class="optional">選填</span></label>
+            <textarea id="log-stuck" name="stuck" rows="3" maxlength="3000" placeholder="遇到的問題，或想再研究的地方……"></textarea>
+            <button class="button button-primary button-full" id="save-button" type="submit"><span aria-hidden="true">＋</span> 儲存這筆紀錄</button>
+          </form>
+          <p id="log-message" class="form-message" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="records-section" aria-labelledby="records-title">
+          <div class="records-heading"><div><p class="eyebrow">YOUR JOURNEY</p><h2 id="records-title">所有紀錄</h2></div><span id="record-count" class="record-count">0 筆</span></div>
+          <div id="records-list" class="records-list" aria-live="polite"></div>
+          <p id="records-message" class="form-message" role="status" aria-live="polite"></p>
+        </section>
+      </div>
+    </section>
+    <footer class="site-footer"><span>慢慢來，也是在前進。</span><span>記錄每一次努力 ✳</span></footer>
+  </main>
+</body>
+</html>
